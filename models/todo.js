@@ -3,11 +3,6 @@
 const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
      static async addTask(params) {
       return await Todo.create(params);
     }
@@ -15,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       console.log("My Todo list \n");
 
       console.log("Overdue");
-      // FILL IN HERE
       const overDueItems = await Todo.overdue();
       overDueItems.forEach((todoItem) =>
         console.log(todoItem.displayableString())
@@ -23,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       console.log("\n");
 
       console.log("Due Today");
-      // FILL IN HERE
       const duetodayItems = await Todo.dueToday();
       duetodayItems.forEach((todoItem) =>
         console.log(todoItem.displayableString())
@@ -31,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       console.log("\n");
 
       console.log("Due Later");
-      // FILL IN HERE
       const duelaterItems = await Todo.dueLater();
       duelaterItems.forEach((todoItem) =>
         console.log(todoItem.displayableString())
@@ -39,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static async overdue() {
-      // FILL IN HERE TO RETURN OVERDUE ITEMS
       const overDueItems = await Todo.findAll({
         where: { dueDate: { [Op.lt]: new Date() } },
         order: [["id", "ASC"]],
@@ -49,7 +40,6 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static async dueToday() {
-      // FILL IN HERE TO RETURN ITEMS DUE tODAY
       const duetodayItems = await Todo.findAll({
         where: { dueDate: new Date() },
         order: [["id", "ASC"]],
@@ -59,7 +49,6 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static async dueLater() {
-      // FILL IN HERE TO RETURN ITEMS DUE LATER
       const duelaterItems = await Todo.findAll({
         where: { dueDate: { [Op.gt]: new Date() } },
         order: [["id", "ASC"]],
@@ -69,7 +58,6 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static async markAsComplete(id) {
-      // FILL IN HERE TO MARK AN ITEM AS COMPLETE
       await Todo.update(
         { completed: true },
         {
